@@ -1,3 +1,5 @@
+#include <string.h>
+
 /* Defines an IDT entry */
 struct idt_entry
 {
