@@ -13,13 +13,42 @@ void kernel_early(void)
 	isrs_install();
 	irq_install();
 	__asm__ __volatile__ ("sti"); 
+	
 	terminal_initialize();
 }
 
 void kernel_main(void)
 {
-	printf("Do newlines work?\n");
-	printf("(is this on a new line?)\nHow bout this?");
-	asm volatile ("int $0x3");
-	//printf("Divide this!!!!  %d / %d = %d\n",7,0,7/0); 
+	extern uint32_t endkernel;
+	printf("End of kernel is %d\n", &endkernel);
+	//asm volatile ("int $0x3");
+	printf("%d",7); 
+	char *ptr = "Hello world!";
+	char *np = 0;
+	int i = 5;
+	unsigned int bs = sizeof(int)*8;
+	int mi;
+	char buf[80];
+
+	mi = (1 << (bs-1)) + 1;
+	printf("%s\n", ptr);
+	printf("printf test\n");
+	printf("%s is null pointer\n", np);
+	printf("%d = 5\n", i);
+	printf("%d = - max int\n", mi);
+	printf("char %c = 'a'\n", 'a');
+	printf("hex %x = ff\n", 0xff);
+	printf("hex %02x = 00\n", 0);
+	printf("signed %d = unsigned %u = hex %x\n", -3, -3, -3);
+	printf("%d %s(s)%", 0, "message");
+	printf("\n");
+	printf("%d %s(s) with %%\n", 0, "message");
+	sprintf(buf, "justif: \"%-10s\"\n", "left"); printf("%s", buf);
+	sprintf(buf, "justif: \"%10s\"\n", "right"); printf("%s", buf);
+	sprintf(buf, " 3: %04d zero padded\n", 3); printf("%s", buf);
+	sprintf(buf, " 3: %-4d left justif.\n", 3); printf("%s", buf);
+	sprintf(buf, " 3: %4d right justif.\n", 3); printf("%s", buf);
+	sprintf(buf, "-3: %04d zero padded\n", -3); printf("%s", buf);
+	sprintf(buf, "-3: %-4d left justif.\n", -3); printf("%s", buf);
+	sprintf(buf, "-3: %4d right justif.\n", -3); printf("%s", buf);
 }

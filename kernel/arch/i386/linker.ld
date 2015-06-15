@@ -37,8 +37,9 @@ SECTIONS
 		*(COMMON)
 		*(.bss)
 		*(.bootstrap_stack)
+		endkernel = .;
 	}
 
-	/* The compiler may produce other sections, put them in the proper place in
+	/* The compiler may produce other sections, put them in the proper place
 	   in this file, if you'd like to include them in the final kernel. */
 }
