@@ -1,5 +1,6 @@
 #include <kernel/gdtidt.h>
 #include <kernel/tty.h>
+#include <stdio.h>
 
 extern void isr0();
 extern void isr1();
@@ -131,8 +132,8 @@ void fault_handler(struct regs *r)
 {
     if (r->int_no < 32)
     {
-        terminal_writestring(exception_messages[r->int_no]);
-        terminal_writestring(" Exception. System Halted!\n");
+        printf("\n%s Exception. System Halted!\n", exception_messages[r->int_no]);
+        printf("DONKEY");
         for (;;);
     }
 }

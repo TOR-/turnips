@@ -5,6 +5,9 @@
 
 #include <kernel/tty.h>
 #include <kernel/gdtidt.h>
+#include <drivers/pci.h>
+
+#define DEBUG 1
 
 void kernel_early(void)
 {
@@ -20,15 +23,12 @@ void kernel_early(void)
 void kernel_main(void)
 {
 	extern uint32_t endkernel;
-	printf("End of kernel is %d\n", &endkernel);
-	//asm volatile ("int $0x3");
-	printf("%d",7); 
+	// asm volatile ("int $0x3"); Breakpoint Exception
 	char *ptr = "Hello world!";
 	char *np = 0;
 	int i = 5;
 	unsigned int bs = sizeof(int)*8;
 	int mi;
-	char buf[80];
 
 	mi = (1 << (bs-1)) + 1;
 	printf("%s\n", ptr);
@@ -40,15 +40,8 @@ void kernel_main(void)
 	printf("hex %x = ff\n", 0xff);
 	printf("hex %02x = 00\n", 0);
 	printf("signed %d = unsigned %u = hex %x\n", -3, -3, -3);
-	printf("%d %s(s)%", 0, "message");
+	printf("%d %s(s)", 0, "message");
 	printf("\n");
 	printf("%d %s(s) with %%\n", 0, "message");
-	sprintf(buf, "justif: \"%-10s\"\n", "left"); printf("%s", buf);
-	sprintf(buf, "justif: \"%10s\"\n", "right"); printf("%s", buf);
-	sprintf(buf, " 3: %04d zero padded\n", 3); printf("%s", buf);
-	sprintf(buf, " 3: %-4d left justif.\n", 3); printf("%s", buf);
-	sprintf(buf, " 3: %4d right justif.\n", 3); printf("%s", buf);
-	sprintf(buf, "-3: %04d zero padded\n", -3); printf("%s", buf);
-	sprintf(buf, "-3: %-4d left justif.\n", -3); printf("%s", buf);
-	sprintf(buf, "-3: %4d right justif.\n", -3); printf("%s", buf);
+	pci_check_peripherals();
 }

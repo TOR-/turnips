@@ -1,10 +1,6 @@
 #include <kernel/gdtidt.h>
 #include <stdint.h>
-
-void outb (unsigned short _port, unsigned char _data)
-{
-    __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
-}
+#include <sys/io.h>
 
 /* These are own ISRs that point to our special IRQ handler
 *  instead of the regular 'fault_handler' function */

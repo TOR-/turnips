@@ -6,7 +6,6 @@ extern void gdt_flush();
 
 void idt_install();
 
-
 void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
 
 //installs interrupt service routines
@@ -21,9 +20,6 @@ struct regs
     unsigned int eip, cs, eflags, useresp, ss;   /* pushed by the processor automatically */ 
 };
 
-#include <stdint.h>
-
-void outportb (unsigned short _port, unsigned char _data);
 void irq_install();
 
 #endif
