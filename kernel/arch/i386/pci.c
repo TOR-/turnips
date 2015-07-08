@@ -48,7 +48,7 @@ printf("\ndevices at[bus:device/slot:function:bar4]");
 		       {
 		       		bar4 = pciConfigReadWord(bus, device, function, 0x20);
 		       		
-		       		printf("\n%u : %u : %u : %u", bus, device, function, bar4);// Double Fault On This Line
+		       		printf("\n%u : %u : %u : %u", bus, device, function, bar4);
 		       		
 		          cc == pciConfigReadWord(bus, device, function, 87);   // Classcode is an offset too
 		          sc == pciConfigReadWord(bus, device, function, 79);   // SubClasscode is an offset too
