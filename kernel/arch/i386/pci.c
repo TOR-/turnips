@@ -20,16 +20,17 @@ uint16_t pciConfigReadWord (uint8_t bus, uint8_t slot, uint8_t func, uint8_t off
     /* write out the address */
     //outl(0xCF8, address);
     outl(address, 0xCF8);
+    //printf("%d\n",__LINE__);
     /* read in the data */
     /* (offset & 2) * 8) = 0 will choose the first word of the 32 bits register */
     tmp = (uint16_t)((inl (0xCFC) >> ((offset & 2) * 8)) & 0xffff);
-    
-    return (tmp);
+    //printf("%d\n",__LINE__);
+    return tmp;
  }
  
 void pci_check_peripherals()
 {
-uint16_t cc,sc = 0;
+//uint16_t cc,sc = 0;
 uint16_t vID;
 uint8_t bus,device,function;
 uint32_t bar4 = 0;
@@ -48,20 +49,22 @@ printf("\ndevices at[bus:device/slot:function:bar4]");
 		       {
 		       		bar4 = pciConfigReadWord(bus, device, function, 0x20);
 		       		
-		       		printf("\n%u : %u : %u : %u", bus, device, function, bar4);
+		       		printf("\n%u : %u : %u : %u", (unsigned int)bus, (unsigned int)device, (unsigned int)function, (unsigned int)bar4);
 		       		
-		          cc == pciConfigReadWord(bus, device, function, 87);   // Classcode is an offset too
-		          sc == pciConfigReadWord(bus, device, function, 79);   // SubClasscode is an offset too
+		          //cc == pciConfigReadWord(bus, device, function, 87);   // Classcode is an offset too
+		          //sc == pciConfigReadWord(bus, device, function, 79);   // SubClasscode is an offset too
 		          //printf("cc %d, sc %d",cc,sc);
-		          if (cc != 0x000C && sc != 0x0003)   // USB-controllers have 0x0C as classcode and 0x03 as SubClasscode
-		             continue;
-		          else
-		          {
-		          	printf("<-USB-controller found");
-		          }
+		          //if (cc != 0x000C && sc != 0x0003)   // USB-controllers have 0x0C as classcode and 0x03 as SubClasscode
+		          //   continue;
+		          //else
+		          //{
+		          //	printf("<-USB-controller found");
+		          //}
 		       }
 		    }
 			}
+			printf(" %d",bus);
 		}
+		
 }
 
